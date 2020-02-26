@@ -1,0 +1,39 @@
+{% extends 'blogs/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="header">
+        <h1>{{ form_title }}</h1>
+    </div>
+    <hr>
+    <div class="form">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% comment %} <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <label for="{{ form.title.id_for_label }}">Title :</label>
+                    {{ form.title }}
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <label for="{{ form.content.id_for_label }}">Content :</label>
+                </div>
+                {{ form.content }}
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <label for="tab_form.tag.id_for_label">Tags :</label>
+                </div>
+                {{ tag_form.tag }}
+            </div> {% endcomment %}
+            {{ form|crispy }}
+            {{ tag_form|crispy }}
+            <input type="submit" value="{{ btn }}" class="btn btn-primary" />
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock content %}

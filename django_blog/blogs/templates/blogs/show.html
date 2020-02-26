@@ -1,0 +1,76 @@
+{% extends "blogs/base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="header">
+        <h1>{{ post.title }}</h1>
+    </div>
+
+    <p class="drop-cap">{{ post.content }}</p>
+    <div class="post-foot">
+        <div class="post-by">
+            <span>Posted by:: </span>
+            <p>{{ post.user }}</p>
+        </div>
+        <div class="actions">
+            {% if user.is_authenticated %}
+            {% if user.id == post.user.id %}
+            <a href="{% url 'editPost' post.id %}"><button type="button" class="btn btn-dark"><i
+                        class="fas fa-edit">&nbsp;</i>Edit</button></a>
+            <a href="{% url 'deletePost' post.id %}"><button type="button" class="btn btn-danger"
+                    onclick="return confirm('Are you sure ?')"><i class="fas fa-trash">&nbsp;</i>Delete</button></a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+    <div class="tags-div">
+        <h3>Tags: </h3>
+        {% for tag in tags %}
+        <span class="tag">{{ tag.tag }}</span>
+        {% endfor %}
+    </div>
+    <hr>
+    <div class="comments">
+        <h3>Comments</h3>
+        {% if comments|length > 0 %}
+        {% for comment in comments %}
+        <div class="comment-div">
+            <div class="comment-left">
+                <span>{{ comment.name }}::&nbsp;&nbsp;</span>
+                <p>{{ comment.comment }}</p>
+            </div>
+            <div class="comment-right">
+                {% if user.is_authenticated %}
+                {% if user.id == comment.user.id %}
+                <a href="{% url 'deleteComment' post.id comment.id %}"><span
+                        onclick="return confirm('Are you sure ?')"><i class="fas fa-trash"></i></span></a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5>No Comments yet :(</h5>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="comments-form">
+        <h3>Comment Here</h3>
+        {% if user.is_authenticated %}
+        <form action="" method="post">
+            ` {% csrf_token %}
+            {{ comment_form|crispy }}
+            <input type="submit" value="Comment" class="btn btn-primary" />
+        </form>
+        {% else %}
+        <h4>Login to leave a reply</h4>
+        {% endif %}
+
+    </div>
+</div>
+
+</div>
+
+{% endblock content %}
