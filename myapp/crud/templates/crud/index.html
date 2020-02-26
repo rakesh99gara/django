@@ -1,0 +1,3 @@
+{% for student in students %}
+<a href="{% url 'show' student.id %}"><h1>{{ student.first_name }}</h1></a>
+{% endfor %}
