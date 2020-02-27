@@ -7,12 +7,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 def index(request):
     latest_posts = Post.objects.all().order_by('-id')
+    paginator = Paginator(latest_posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     tags = Tag.objects.all()
     context = {
-        'posts': latest_posts,
+        'posts': page_obj,
         'tags':tags,
         'head' : "Recent Posts"
     }
@@ -83,9 +87,13 @@ def deleteComment(request,postid,commentid):
 def tagPosts(request,tagid):
     tag = Tag.objects.get(id=tagid)
     posts = tag.posts.all().order_by('-id')
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     tags = Tag.objects.all()
     context = {
-        'posts' : posts,
+        'posts' : page_obj,
         'tags':tags,
         'head' : "Posts on "+tag.tag
     }

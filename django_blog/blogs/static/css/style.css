@@ -267,6 +267,7 @@ P.drop-cap:first-letter {
 .card-title {
 	color: #eae7af;
 }
+
 .card-body a span {
 	background: #3e4346;
 	padding: 5px;
@@ -285,17 +286,21 @@ P.drop-cap:first-letter {
 	flex: 1;
 	text-align: center;
 }
+
 .blog h4 {
 	font-size: 30px;
 	font-weight: 200;
 }
+
 .list {
 	padding-top: 50%;
 	flex: 8;
 }
+
 .list ul li {
 	list-style: none;
 }
+
 .list ul li a {
 	text-decoration: none;
 }
@@ -335,6 +340,31 @@ P.drop-cap:first-letter {
 .errorlist {
 	color: #cf6679;
 }
+
 .comments-form h4 {
 	color: #5a5854;
+}
+
+.pagination {
+	margin-top: 5vh;
+	padding: 2vh;
+	align-content: center;
+}
+
+.step-links {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	display: flex;
+	justify-content: center;
+}
+
+.previous {
+	margin-right: 2vh;
+}
+
+.current {
+	margin-right: 2vh;
+	color: aqua;
+	padding-top: 5px;
 }
